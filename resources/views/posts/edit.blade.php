@@ -55,7 +55,18 @@
                                     @enderror
                                 </div>
                             </div>
-                             
+                            <div class="row mb-3">
+                                <label for="image" class="col-md-4 col-form-label text-md-end">Add New Image</label>
+    
+                                <div class="col-md-6">
+                                    <input name="image" type="file">
+                                    @error('image')
+                                        <span class="invalid-feedback" role="alert">
+                                            <strong>{{ $message }}</strong>
+                                        </span>
+                                    @enderror
+                                </div>
+                            </div>
                             <div class="row my-3 px-5">
                                 <div class="container d-flex justify-content-around">
                                     <button type="submit" class="btn btn-primary w-100">

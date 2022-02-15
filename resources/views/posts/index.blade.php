@@ -4,21 +4,22 @@
 @section('content')
 @auth
 <div class="container pt-5 position-relative mt-3">
- <button onClick="onslick()" class="btn btn-primary position-absolute mx-3 my-2">Create Post</button>
+ <button onClick="onslick()" class="btn position-absolute btn-primary mx-3">Create Post</button>
  @include('posts.create') 
- @if( Auth::user()->id == $latest->user_id)
- <div class="container p-2 d-flex flex-row justify-content-end  mb-1">     
+
+ <div class="container position-absolute d-flex flex-row justify-content-end px-5">  
+  @if( Auth::user()->id == $latest->user_id)   
   <a href="/blog/{{$latest->id}}/edit" class="btn btn-primary px-4" style="margin-right: 20px">Edit</a>
   <form action="/blog/{{ $latest->id }}" method="POST">
      @csrf
      @method('delete')
      <button type="submit" class="btn btn-danger px-4">Delete</button>
   </form>
+  @endif
 </div>
- @endif
 @endauth
 
-  <div class="container d-flex align-items-center justify-content-around">
+  <div class="container mt-5 d-flex align-items-center justify-content-around">
        <div class="container mt-3 d-flex flex-column text-light postcard dark red" style="min-height: 500px">
              <div class="container d-flex py-4 justify-content-between align-items-center "style="min-height: 600px">
                    <img class="img-fluid h-100 w-50" style="object-fit: cover" src="{{ asset('images/' . $latest->image ) }}" alt="">
@@ -51,7 +52,7 @@
       @endif
       @endauth
       <article class="postcard dark {{ $pred[round(rand(0,3))]}}">
-        <a class="postcard__img_link" href="#">
+        <a class="postcard__img_link" href="/blog/{{ $post->id}}">
           <img class="postcard__img" src="{{ asset('images/' . $post->image ) }}" alt="Image Title" />
         </a>
         <div class="postcard__text">

@@ -41,11 +41,10 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
-<<<<<<< HEAD
-=======
+
 
     public function upost(){
         $this->hasMany(Post::class);
     }
->>>>>>> 25a43bf7ef333511427cc652acef3c2ecb725a08
+
 }

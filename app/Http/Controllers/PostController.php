@@ -104,14 +104,33 @@ class PostController extends Controller
     public function update(Request $request, $id)
     {
         //
+        $request->validate([
+            'title' => 'required',
+            'content' => 'required',
+            'image' =>'mimes:jpg,png,jpeg,gif,svg,webp|max:5048'
+          ]);
+         
 
 
-       Post::where('id',$id)->update([
-        'title' => $request->input('title'),
-        'content' => $request->input('content'),
-        'user_id' => $request->input('id'),
-       ]);
-
+        if($request->image){
+            $newimg = time().'-'.$request->title.'.'.$request->image->extension();      
+            $test =  $request->image->move(public_path('images'), $newimg);
+            Post::where('id',$id)->update([
+                'title' => $request->input('title'),
+                'content' => $request->input('content'),
+                'user_id' => $request->input('id'),
+                'image' => $newimg
+               ]);
+        }
+        else{
+            Post::where('id',$id)->update([
+                'title' => $request->input('title'),
+                'content' => $request->input('content'),
+                'user_id' => $request->input('id'),
+               ]);
+        }
+      
+      
       return redirect('/blog');
     }
 
